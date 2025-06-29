@@ -20,7 +20,7 @@ function BlackjackGame() {
     initDeck();
   }, []);
 
-  const drawCard = async () => {
+ const drawCard = async () => {
   if (!deckId) throw new Error('Kein Deck verfügbar');
   const res = await fetch(`${API}/${deckId}/draw/?count=1`);
   const data = await res.json();
@@ -106,17 +106,18 @@ function BlackjackGame() {
 
   return (
     <div className="game-container">
-      <ScoreBoard playerCards={playerCards} dealerCards={dealerCards} calculateScore={calculateScore} />
+      <button onClick={startGame}>Neues Spiel</button>
+      <ScoreBoard dealerCards={dealerCards} playerCards={playerCards} calculateScore={calculateScore} />
 
       <div className="cards">
-        <h2>Deine Karten</h2>
-        <div className="card-row">
-          {playerCards.map((card) => <Card key={card.code} card={card} />)}
-        </div>
-
         <h2>Dealer</h2>
         <div className="card-row">
           {dealerCards.map((card) => <Card key={card.code} card={card} />)}
+        </div>
+
+        <h2>Deine Karten</h2>
+        <div className="card-row">
+          {playerCards.map((card) => <Card key={card.code} card={card} />)}
         </div>
       </div>
 
